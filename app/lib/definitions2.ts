@@ -9,21 +9,21 @@ export type User = {
   password: string;
 };
 
-export type Cuentas = {
+export type Invoices = {
   id: string;
-  user_id: string;
-  iban: string;
   name: string;
-  entidad: string;
-  saldo: number;
+  email: string;
+  image_url: string;
 };
 
-export type Movimiento = {
+export type Customers = {
   id: string;
-  cuenta_id: string;
-  cantidad: string;
-  concepto: string;
+  customer_id: string;
+  amount: number;
   date: string;
+  // In TypeScript, this is called a string union type.
+  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
+  status: 'pending' | 'paid';
 };
 
 export type Revenue = {
@@ -31,16 +31,17 @@ export type Revenue = {
   revenue: number;
 };
 
-export type LatestMovimiento = {
+export type LatestInvoice = {
   id: string;
-  cuenta_id: string;
-  cantidad: string;
-  concepto: string;
+  name: string;
+  image_url: string;
+  email: string;
+  amount: string;
 };
 
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestMovimientoRaw = Omit<LatestMovimiento, 'cantidad'> & {
-  cantidad: number;
+export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
+  amount: number;
 };
 
 export type InvoicesTable = {
@@ -54,39 +55,34 @@ export type InvoicesTable = {
   status: 'pending' | 'paid';
 };
 
-export type CuentasTableType = {
+export type CustomersTableType = {
   id: string;
-  user_id: string;
-  iban: string;
   name: string;
-  entidad: string;
-  saldo: number;
+  email: string;
+  image_url: string;
+  total_invoices: number;
+  total_pending: number;
+  total_paid: number;
 };
 
-export type FormattedCuentasTable = {
+export type FormattedCustomersTable = {
   id: string;
-  user_id: string;
-  iban: string;
   name: string;
-  entidad: string;
-  saldo: number;
-};
-export type FormattedMovimientosTable = {
-  id: string;
-  cuenta_id: string;
-  cantidad: number;
-  concepto: string;
-  date: string;
+  email: string;
+  image_url: string;
+  total_invoices: number;
+  total_pending: string;
+  total_paid: string;
 };
 
-export type CuentasField = {
+export type CustomerField = {
   id: string;
   name: string;
 };
 
-export type MovimientoForm = {
+export type InvoiceForm = {
   id: string;
-  cuenta_id: string;
-  cantidad: string;
-  concepto: string;
+  customer_id: string;
+  amount: number;
+  status: 'pending' | 'paid';
 };
