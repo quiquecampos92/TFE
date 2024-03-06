@@ -4,6 +4,10 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  PowerIcon,
+  DocumentPlusIcon,
+  ChartBarSquareIcon,
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,7 +17,8 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  { name: 'Movimientos', href: '/dashboard/movimientos', icon: DocumentDuplicateIcon},
+  { name: 'Estadísticas', href: '/dashboard/estadisticas', icon: ChartBarIcon},
+  { name: 'Actualizar', href: '/dashboard/movimientos', icon: DocumentPlusIcon},
   { name: 'Cuentas', href: '/dashboard/cuentas', icon: UserGroupIcon },
 ];
 
@@ -29,9 +34,9 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-[#00A2DB] hover:text-[#E8EAFF] md:flex-none md:justify-start md:p-2 md:px-3',
               {
-                'bg-sky-100 text-blue-600': pathname === link.href,
+                'bg-[#071F45] text-[#FFFFFF]': pathname === link.href,
               },
             )}
           >

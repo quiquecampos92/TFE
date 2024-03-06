@@ -4,7 +4,7 @@ import MovimientosTable from '@/app/ui/movimientos/table';
 
 
 export const metadata: Metadata = {
-  title: 'Estadísticas',
+  title: 'Movimientos',
 };
 
 export default async function Page({
