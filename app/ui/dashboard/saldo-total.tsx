@@ -18,7 +18,7 @@ export default async function CuentasTable({
     <div className="w-full">
       {cuenta.map((c) => (
         <div key={c.id} className="iban-container bg-white rounded-md p-4 shadow-md mb-4">
-
+{/* aqui habria que ver que ponemos para que sume los saldos */}
 
           <label className="block text-sm font-medium text-gray-500" htmlFor="saldo">
             Saldo Total
