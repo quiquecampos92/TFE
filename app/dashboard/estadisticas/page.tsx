@@ -1,6 +1,6 @@
 import CardWrapper from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import LatestMovimientos from '@/app/ui/dashboard/latest-invoices';
+import LatestMovimientos from '@/app/ui/dashboard/latest-movimientos';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import {

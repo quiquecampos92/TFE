@@ -6,6 +6,7 @@ import {
   LatestMovimientoRaw,
   User,
   Revenue,
+  Cuentas,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -67,7 +68,6 @@ export async function fetchLatestMovimientos() {
     throw new Error('Failed to fetch the latest movimientos.');
   }
 }
-
 
 
 export async function fetchMovimientosMetrics() {
