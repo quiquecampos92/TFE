@@ -53,13 +53,14 @@ export async function createMovimiento(prevState: State, formData: FormData) {
   // Prepare data for insertion into the database
   const { cuenta_Id, cantidad, concepto } = validatedFields.data;
   const cantidadInCents = cantidad * 100;
+  const cantidadSinCents = cantidad;
   const date = new Date().toISOString().split('T')[0];
 
   // Insert data into the database
   try {
     await sql`
       INSERT INTO movimientos (cuenta_id, cantidad, concepto, date)
-      VALUES (${cuenta_Id}, ${cantidadInCents}, ${concepto}, ${date})
+      VALUES (${cuenta_Id}, ${cantidadSinCents}, ${concepto}, ${date})
     `;
   } catch (error) {
     // If a database error occurs, return a more specific error.
