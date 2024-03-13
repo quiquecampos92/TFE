@@ -18,7 +18,7 @@ export default async function Page({
   const query = searchParams?.query || '';
 
   // const id = searchParams?.id || '';
-  const iban = 'ES9820385778983000760300';
+  // const iban = 'ES9820385778983000760300';
   // const id = '3958dc9e-712f-4377-85e9-fec4b6a6442a'
  
   const cuentas = await fetchFilteredCuentas();

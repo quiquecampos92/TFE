@@ -84,9 +84,23 @@ export type CuentasField = {
   name: string;
 };
 
+export type UsersField = {
+  id: string;
+  name: string;
+};
+
 export type MovimientoForm = {
   id: string;
   cuenta_id: string;
   cantidad: string;
   concepto: string;
+};
+
+export type CuentaForm = {
+  id: string;
+  user_id: string;
+  iban: string;
+  name: string;
+  entidad: string;
+  saldo: number;
 };

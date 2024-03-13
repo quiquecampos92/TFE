@@ -2,6 +2,7 @@ import { sql } from '@vercel/postgres';
 import {
   CuentasField,
   MovimientoForm,
+  CuentaForm,
   InvoicesTable,
   LatestMovimientoRaw,
   User,
@@ -226,6 +227,34 @@ export async function fetchMovimientoById(id: string) {
   }
 }
 
+export async function fetchCuentaById(id: string) {
+  noStore();
+  try {
+    const data = await sql<CuentaForm>`
+      SELECT
+        id,
+        user_id,
+        iban,
+        name,
+        entidad,
+        saldo
+      FROM cuentas
+      WHERE id = ${id};
+    `;
+
+    const cuenta = data.rows.map((cuenta) => ({
+      ...cuenta,
+      // Convert cantidad from cents to dollars
+      id: cuenta.id,
+    }));
+
+    return cuenta[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch cuenta.');
+  }
+}
+
 export async function fetchCuentas() {
   try {
     const data = await sql<CuentasField>`
@@ -247,6 +276,29 @@ export async function fetchCuentas() {
     throw new Error('Failed to fetch all cuentas.');
   }
 }
+
+export async function fetchUsers() {
+  try {
+    const data = await sql<CuentasField>`
+      SELECT
+        id,
+        user_id,
+        iban,
+        name,
+        entidad,
+        saldo
+      FROM cuentas
+      ORDER BY name ASC
+    `;
+
+    const cuentas = data.rows;
+    return cuentas;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all cuentas.');
+  }
+}
+
 
 
 

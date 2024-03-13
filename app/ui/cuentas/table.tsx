@@ -1,4 +1,7 @@
 import { FormattedCuentasTable, FormattedMovimientosTable } from '@/app/lib/definitions';
+import { UpdateMovimiento, DeleteMovimiento } from '@/app/ui/movimientos/buttons';
+import { CreateCuenta } from '@/app/ui/movimientos/buttons';
+
 
 export default async function CuentasTable({
   cuenta,
@@ -18,6 +21,9 @@ export default async function CuentasTable({
       <h1 className="font-bold text-3xl md:text-4xl mb-8 text-green-800">
         Cuentas
       </h1>
+
+      <CreateCuenta />
+
       {cuenta.map((c) => (
         <div key={c.id} className="iban-container bg-white rounded-md p-4 shadow-md mb-4">
           <label className="block text-sm font-medium text-gray-500" htmlFor="name">
@@ -39,6 +45,10 @@ export default async function CuentasTable({
             Saldo
           </label>
           <p className="text-lg font-semibold mb-2">{getCuentaSaldo(c.id)}</p>
+          <div className="flex items-center">
+              <UpdateMovimiento id={c.id} />
+              <DeleteMovimiento id={c.id} />
+            </div>
         </div>
       ))}
     </div>

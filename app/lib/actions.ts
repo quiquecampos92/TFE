@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+//MOVIMIENTOS
+
 const FormSchema = z.object({
   id: z.string(),
   cuenta_Id: z.string({
@@ -30,6 +32,10 @@ export type State = {
     cuenta_Id?: string[];
     cantidad?: string[];
     concepto?: string[];
+    user_Id?: string[];
+    name?: string[];
+    iban?: string[];
+    entidad?: string[];
   };
   message?: string | null;
 };
@@ -52,7 +58,7 @@ export async function createMovimiento(prevState: State, formData: FormData) {
 
   // Prepare data for insertion into the database
   const { cuenta_Id, cantidad, concepto } = validatedFields.data;
-  const cantidadInCents = cantidad * 100;
+  // const cantidadInCents = cantidad * 100;
   const cantidadSinCents = cantidad;
   const date = new Date().toISOString().split('T')[0];
 
@@ -118,6 +124,116 @@ export async function deleteMovimiento(id: string) {
     return { message: 'Deleted Movimientos' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Movimiento.' };
+  }
+}
+
+const FormSchemaCuentas = z.object({
+  id: z.string(),
+  user_Id: z.string({
+    invalid_type_error: 'Please select un usuario.',
+  }),
+  name: z.string({
+    invalid_type_error: 'Please select un usuario.',
+  }),
+  iban: z.string({
+    invalid_type_error: 'Please select un usuario.',
+  }),
+  entidad: z.string({
+    invalid_type_error: 'Please enter a concepto del movimiento .',
+  }),
+  date: z.string(),
+});
+
+//CUENTAS
+
+const CreateCuenta = FormSchemaCuentas.omit({ id: true, date: true });
+const UpdateCuenta = FormSchemaCuentas.omit({ date: true, id: true });
+
+export async function createCuenta(prevState: State, formData: FormData) {
+  // Validate form fields using Zod
+  const validatedFields = CreateCuenta.safeParse({
+    user_Id: formData.get('user_Id'),
+    name: formData.get('name'),
+    iban: formData.get('iban'),
+    entidad: formData.get('entidad'),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Cuenta.',
+    };
+  }
+
+  // Prepare data for insertion into the database
+  const { user_Id, name, iban, entidad } = validatedFields.data;
+  // const cantidadInCents = cantidad * 100;
+  const date = new Date().toISOString().split('T')[0];
+
+  // Insert data into the database
+  try {
+    await sql`
+      INSERT INTO cuentas (user_Id, name, iban, entidad, date)
+      VALUES (${user_Id}, ${name}, ${iban}, ${entidad}, ${date})
+    `;
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+    return {
+      message: 'Database Error: Failed to Create Cuenta.',
+    };
+  }
+}
+
+  // Revalidate the cache for the cuenta page and redirect the user.
+  revalidatePath('/dashboard/cuentas');
+  // redirect('/dashboard/cuentas'); ESTO HAY QUE CAMBIARLO PAR VER SI FUNCIONA CORRECTAMENTE
+
+export async function updateCuenta(
+  id: string,
+  prevState: State,
+  formData: FormData,
+) {
+  const validatedFields = UpdateCuenta.safeParse({
+    user_Id: formData.get('user_Id'),
+    name: formData.get('name'),
+    iban: formData.get('iban'),
+    entidad: formData.get('entidad'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Cuenta.',
+    };
+  }
+
+  const { name, iban, entidad } = validatedFields.data;
+
+  try {
+    await sql`
+    UPDATE cuentas
+    SET name = ${name}, iban = ${iban}, entidad = ${entidad}
+    WHERE id = ${id}
+    `;
+    console.log(id);
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update Cuenta.' };
+  }
+
+  revalidatePath('/dashboard/cuentas');
+  redirect('/dashboard/cuentas');
+}
+
+export async function deleteCuenta(id: string) {
+  // throw new Error('Failed to Delete Movimiento');
+  console.log('Eliminando cuenta con ID:', id);
+  try {
+    await sql`DELETE FROM cuentas WHERE id = ${id}`;
+    revalidatePath('/dashboard/cuentas');
+    return { message: 'Deleted Cuentas' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Cuenta.' };
   }
 }
 
