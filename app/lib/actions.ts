@@ -36,6 +36,7 @@ export type State = {
     name?: string[];
     iban?: string[];
     entidad?: string[];
+    saldo?: string[];
   };
   message?: string | null;
 };

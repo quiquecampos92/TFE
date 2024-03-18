@@ -23,34 +23,36 @@ export default async function CuentasTable({
       </h1>
 
       <CreateCuenta />
+      <br /><br />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {cuenta.map((c) => (
+          <div key={c.id} className="iban-container bg-white rounded-md p-4 shadow-md mb-4">
+            <label className="block text-sm font-medium text-gray-500" htmlFor="name">
+              Nombre de la cuenta
+            </label>
+            <p className="text-lg font-semibold mb-2">{c.name}</p>
 
-      {cuenta.map((c) => (
-        <div key={c.id} className="iban-container bg-white rounded-md p-4 shadow-md mb-4">
-          <label className="block text-sm font-medium text-gray-500" htmlFor="name">
-            Nombre de la cuenta
-          </label>
-          <p className="text-lg font-semibold mb-2">{c.name}</p>
+            <label className="block text-sm font-medium text-gray-500" htmlFor="iban">
+              IBAN
+            </label>
+            <p className="text-lg font-semibold mb-2">{c.iban}</p>
 
-          <label className="block text-sm font-medium text-gray-500" htmlFor="iban">
-            IBAN
-          </label>
-          <p className="text-lg font-semibold mb-2">{c.iban}</p>
+            <label className="block text-sm font-medium text-gray-500" htmlFor="entidad">
+              Entidad
+            </label>
+            <p className="text-lg font-semibold mb-2">{c.entidad}</p>
 
-          <label className="block text-sm font-medium text-gray-500" htmlFor="entidad">
-            Entidad
-          </label>
-          <p className="text-lg font-semibold mb-2">{c.entidad}</p>
-
-          <label className="block text-sm font-medium text-gray-500" htmlFor="saldo">
-            Saldo
-          </label>
-          <p className="text-lg font-semibold mb-2">{getCuentaSaldo(c.id)}</p>
-          <div className="flex items-center">
+            <label className="block text-sm font-medium text-gray-500" htmlFor="saldo">
+              Saldo
+            </label>
+            <p className="text-lg font-semibold mb-2">{getCuentaSaldo(c.id)}</p>
+            <div className="flex items-center">
               <UpdateMovimiento id={c.id} />
               <DeleteMovimiento id={c.id} />
             </div>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

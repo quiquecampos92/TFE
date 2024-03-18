@@ -82,6 +82,7 @@ export type FormattedMovimientosTable = {
 export type CuentasField = {
   id: string;
   name: string;
+  user_Id: string;
 };
 
 export type UsersField = {

@@ -1,5 +1,5 @@
 import { fetchCuentas } from '@/app/lib/data';
-import Form from '@/app/ui/movimientos/create-form';
+import Form from '@/app/ui/movimientos/create-form-cuenta';
 import Breadcrumbs from '@/app/ui/movimientos/breadcrumbs';
 import { Metadata } from 'next';
 
@@ -14,10 +14,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Movimientos', href: '/dashboard/movimientos' },
+          { label: 'Cuentas', href: '/dashboard/cuentas' },
           {
-            label: 'Create Movimiento',
-            href: '/dashboard/movimientos/create',
+            label: 'Crear Cuenta',
+            href: '/dashboard/cuentas/create',
             active: true,
           },
         ]}
