@@ -1,15 +1,31 @@
-import { FormattedMovimientosTable } from '@/app/lib/definitions';
+import { FormattedCuentasTable, FormattedMovimientosTable } from '@/app/lib/definitions';
 import { formatDateToLocal } from '@/app/lib/utils';
 import Link from 'next/link';
 import { UpdateMovimiento, DeleteMovimiento } from '@/app/ui/movimientos/buttons';
 import { CreateMovimientos } from '@/app/ui/movimientos/buttons';
+import { auth } from '@/auth';
+
 export default async function MovimientosTable({
   movimiento,
+  cuenta,
 }: {
   movimiento: FormattedMovimientosTable[];
+  cuenta: FormattedCuentasTable[];
 }) {
   // Ordenar los movimientos de más reciente a más antiguo
   const movimientosOrdenados = movimiento.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // const getNombreCuenta = (cuenta_id: string) => {
+  //   // Buscar la cuenta con el ID proporcionado
+  //   const cuentaEncontrada = cuenta.find((c) => c.id === cuenta_id);
+  
+  //   // Si se encuentra la cuenta, devolver su nombre
+  //   return cuentaEncontrada?.name;
+  // };
+  
+  
+  
+  
 
   return (
     <div className="w-full">
@@ -19,32 +35,62 @@ export default async function MovimientosTable({
 
       <CreateMovimientos />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {movimientosOrdenados.map((m) => (
-          <div key={m.id} className="iban-container bg-white rounded-md p-4 shadow-md">
-            <label className="block text-sm font-medium text-gray-500" htmlFor="cantidad">
-              Cantidad
-            </label>
-            <p className="text-base font-semibold mb-2">{m.cantidad}</p>
-
-            <label className="block text-sm font-medium text-gray-500" htmlFor="concepto">
-              Concepto
-            </label>
-            <p className="text-base font-semibold mb-2">{m.concepto}</p>
-
-            <label className="block text-sm font-medium text-gray-500" htmlFor="fecha">
-              Fecha
-            </label>
-            <p className="text-base font-semibold mb-2">{formatDateToLocal(m.date)}</p>
-
-            <div className="flex items-center">
-              <UpdateMovimiento id={m.id} />
-              <DeleteMovimiento id={m.id} />
-            </div>
-          </div>
-        ))}
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Tipo
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Cantidad
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Concepto
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Nombre de la cuenta
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {movimientosOrdenados.map((m) => (
+              <tr key={m.id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{m.type}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{m.cantidad}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{m.concepto}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{formatDateToLocal(m.date)}</div>
+                </td>
+                {/* <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{getNombreCuenta(m.cuenta_id)}</div>
+                </td> */}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{m.cuenta_id}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <div className="flex items-center space-x-4">
+                    <UpdateMovimiento id={m.id} />
+                    <DeleteMovimiento id={m.id} />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
-

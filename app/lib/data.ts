@@ -25,6 +25,7 @@ interface MovimientosTableType {
   cantidad: number;
   concepto: string;
   date: string;
+  type: 'gasolina' | 'comida' | 'ocio' | 'otros' | 'alquiler' | 'seguros' | 'inversiones';
 }
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.

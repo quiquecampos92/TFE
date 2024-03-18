@@ -64,6 +64,7 @@ const movimientos = [
     cantidad: 2323,
     concepto: 'pending',
     date: '2022-12-06',
+    type: 'gasolina',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64423',
@@ -71,6 +72,7 @@ const movimientos = [
     cantidad: 154,
     concepto: 'pending',
     date: '2020-10-23',
+    type: 'otros',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64424',
@@ -78,6 +80,7 @@ const movimientos = [
     cantidad: 43423,
     concepto: 'pending',
     date: '2022-05-19',
+    type: 'comida',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64425',
@@ -85,6 +88,7 @@ const movimientos = [
     cantidad: 45345,
     concepto: 'pending',
     date: '2023-12-06',
+    type: 'inversiones',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64426',
@@ -92,6 +96,7 @@ const movimientos = [
     cantidad: 343,
     concepto: 'concepto cuenta 2',
     date: '2027-12-06',
+    type: 'seguros',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64427',
@@ -99,6 +104,7 @@ const movimientos = [
     cantidad: 343,
     concepto: 'concepto cuenta 2',
     date: '2022-05-06',
+    type: 'otros',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64428',
@@ -106,6 +112,7 @@ const movimientos = [
     cantidad: 153434795,
     concepto: 'concepto cuenta 53',
     date: '2022-03-06',
+    type: 'ocio',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64429',
@@ -113,6 +120,7 @@ const movimientos = [
     cantidad: 3,
     concepto: 'concepto cuenta 3',
     date: '2022-01-06',
+    type: 'ocio',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64421',
@@ -120,6 +128,7 @@ const movimientos = [
     cantidad: 4343,
     concepto: 'concepto cuenta 4',
     date: '2022-11-06',
+    type: 'comida',
   },
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a64433',
@@ -127,6 +136,7 @@ const movimientos = [
     cantidad: 15795,
     concepto: 'concepto cuenta 4',
     date: '2022-09-06',
+    type: 'alquiler',
   },
 ];
 
