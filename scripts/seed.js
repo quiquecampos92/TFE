@@ -52,13 +52,12 @@ async function seedMovimientos(client) {
     // Create the "movimientos" table if it doesn't exist
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS movimientos (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      cuenta_id UUID NOT NULL REFERENCES cuentas(id),
-      cantidad INT NOT NULL,
-      concepto VARCHAR(255) NOT NULL,
-      date DATE NOT NULL,
-      type VARCHAR(255) NOT NULL
-    );
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    cuenta_id UUID NOT NULL REFERENCES cuentas(id),
+    cantidad INT NOT NULL,
+    concepto VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+  );
 `;
 
     console.log(`Created "movimientos" table`);
@@ -67,8 +66,8 @@ async function seedMovimientos(client) {
     const insertedMovimientos = await Promise.all(
       movimientos.map(
         (movimiento) => client.sql`
-        INSERT INTO movimientos (id, cuenta_id, cantidad, concepto, date, type)
-        VALUES (${movimiento.id}, ${movimiento.cuenta_id}, ${movimiento.cantidad}, ${movimiento.concepto}, ${movimiento.date}, ${movimiento.type})
+        INSERT INTO movimientos (id, cuenta_id, cantidad, concepto, date)
+        VALUES (${movimiento.id}, ${movimiento.cuenta_id}, ${movimiento.cantidad}, ${movimiento.concepto}, ${movimiento.date})
         ON CONFLICT (id) DO NOTHING;
       `,
       ),

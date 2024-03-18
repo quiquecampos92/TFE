@@ -24,9 +24,7 @@ export type Movimiento = {
   cantidad: string;
   concepto: string;
   date: string;
-  type: 'gasolina' | 'comida' | 'ocio' | 'otros' | 'alquiler' | 'seguros' | 'inversiones';
 };
-
 
 export type Revenue = {
   month: string;
@@ -79,9 +77,7 @@ export type FormattedMovimientosTable = {
   cantidad: number;
   concepto: string;
   date: string;
-  type: 'gasolina' | 'comida' | 'ocio' | 'otros' | 'alquiler' | 'seguros' | 'inversiones';
 };
-
 
 export type CuentasField = {
   id: string;
@@ -99,9 +95,7 @@ export type MovimientoForm = {
   cuenta_id: string;
   cantidad: string;
   concepto: string;
-  type: 'gasolina' | 'comida' | 'ocio' | 'otros' | 'alquiler' | 'seguros' | 'inversiones';
 };
-
 
 export type CuentaForm = {
   id: string;
