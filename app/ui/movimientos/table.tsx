@@ -44,7 +44,7 @@ export default async function MovimientosTable({
             {movimientosOrdenados.map((m) => (
               <tr key={m.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{m.cantidad}</div>
+                  <div className="text-sm font-medium text-gray-900">{m.cantidad} €</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">{m.concepto}</div>
